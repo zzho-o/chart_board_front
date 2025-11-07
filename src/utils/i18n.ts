@@ -12,7 +12,7 @@ export const setLanguage = (lng: 'ko' | 'en') => {
 const resources = {
   ko: {
     common: {
-      brand: '디렉셔널',
+      brand: '컴퍼니',
       logout: '로그아웃',
       lang_ko: '한국어',
       lang_en: 'English',
@@ -47,11 +47,11 @@ const resources = {
     },
     footer: {
       contact: 'Contact',
-      email: 'help@directional.net',
-      companyBlock: `주식회사 디렉셔널
-대표 : 이윤정
-사업자 등록번호 : 758-86-01081
-07327, 서울특별시 영등포구 여의나루로 53-1, 1103호(여의도동, 대오빌딩)`,
+      email: 'test@test.net',
+      companyBlock: `주식회사 컴퍼니
+대표 : ㅁㅁㅁ
+사업자 등록번호 : 123-45-678910
+12345, 서울특별시 강남구 테헤란로 00-0`,
     },
     posts: {
       title: '게시글',
@@ -126,7 +126,7 @@ const resources = {
   },
   en: {
     common: {
-      brand: 'Directional',
+      brand: 'Company',
       logout: 'Logout',
       lang_ko: 'Korean',
       lang_en: 'English',
@@ -161,11 +161,11 @@ const resources = {
     },
     footer: {
       contact: 'Contact',
-      email: 'help@directional.net',
-      companyBlock: `Directional Inc.
-CEO : Yunjeong Lee
-Business registration number : 758-86-01081
-07327, 53-1, Yeouinaru-ro, Yeongdeungpo-gu, 1103 (Yeouido-dong, Daeo Bldg), 
+      email: 'test@test.net',
+      companyBlock: `Company Inc.
+CEO : aaa Kim
+Business registration number : 123-45-678910
+12345, 00-0, Teheran-ro, gangnam-gu,
 Seoul, Republic of Korea`,
     },
     posts: {
