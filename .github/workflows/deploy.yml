@@ -31,7 +31,7 @@ jobs:
           export BASE_PATH="/chart_board_front/"
           yarn build
           echo "✅ Build complete, dist contents:"
-          ls -la dist || echo "⚠️ dist folder not found"
+          ls -la dist
 
       - name: Deploy to GitHub Pages
         if: success()
@@ -40,6 +40,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: dist
+          keep_files: false
+          force_orphan: true
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
           commit_message: '🚀 Deploy to GitHub Pages'
