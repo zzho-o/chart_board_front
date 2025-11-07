@@ -1,224 +1,262 @@
-🚀 ChartBoard – Demo (FE + API)
+# 🚀 ChartBoard – Demo (FE + API)
 
-React + Vite + TypeScript 기반 데모 앱입니다.
-요구사항(게시판 + 차트 + 인증 + i18n)을 충족하며, 직접 만든 NestJS 백엔드에 연결되어 동작합니다.
+React + Vite + TypeScript 기반의 **게시판 + 차트 + 인증 + i18n 데모 앱**입니다.  
+직접 구현한 **NestJS 백엔드 API**와 연결되어 동작합니다.
 
-게시판: 작성/조회/수정/삭제, 검색, 정렬, 카테고리 필터, 커서 기반 페이지네이션, 금칙어 필터
+---
 
-차트: 도넛(TopBrands), 스택형 바/면적(WeeklyMood), 팀별 멀티라인(CoffeeMultiLine)
+## 🧩 주요 기능
 
-i18n: ko/en 전환
+### 🗂 게시판
 
-인증: JWT 로그인, 보호/공개 라우트 가드
+- 작성 / 조회 / 수정 / 삭제 (CRUD)
+- 검색, 정렬, 카테고리 필터
+- 커서 기반 무한 스크롤 페이지네이션
+- 금칙어 필터 및 태그 기능
 
-🌐 배포 주소
+### 📊 차트
 
-Frontend (GitHub Pages): https://zzho-o.github.io/chart_board/
+- **TopBrands**: 도넛/막대 (브랜드 인기)
+- **WeeklyMood**: 스택형 면적/바 (% 비율)
+- **CoffeeMultiLine**: 팀별 버그·생산성 멀티라인
 
-Backend (Vercel, NestJS): https://chart-board-back.vercel.app
+### 🌍 i18n
 
-Swagger 문서: https://chart-board-back.vercel.app/api
+- 한/영 다국어 전환 (`ko` / `en`)
 
-Health: https://chart-board-back.vercel.app/health
+### 🔐 인증
 
-⚙️ 빠른 시작 (Frontend)
+- JWT 로그인 / 보호 라우트 / 공개 라우트 가드
 
-# 의존성 설치 (yarn 권장)
+---
 
+## 🌐 배포 링크
+
+| 구분                         | URL                                           |
+| ---------------------------- | --------------------------------------------- |
+| **Frontend (GitHub Pages)**  | 🔗 https://zzho-o.github.io/chart_board_front |
+| **Backend (NestJS, Vercel)** | 🔗 https://chart-board-back.vercel.app        |
+| **Swagger 문서**             | 🔗 https://chart-board-back.vercel.app/api    |
+| **Health Check**             | 🔗 https://chart-board-back.vercel.app/health |
+
+---
+
+## 🧪 테스트 계정
+
+| 항목         | 값               |
+| ------------ | ---------------- |
+| **이메일**   | `test@test.test` |
+| **비밀번호** | `Test!234`       |
+
+> 회원가입 기능은 없습니다. 위 테스트 계정으로 로그인 후 기능을 체험할 수 있습니다.
+
+---
+
+## ⚙️ 빠른 시작 (Frontend)
+
+```bash
+# 의존성 설치
 yarn install
 
 # 로컬 개발
-
 yarn dev
 
 # 프로덕션 빌드
-
 yarn build
 
 # 빌드 결과 미리보기
-
 yarn preview
 
-# ESLint
-
+# ESLint 검사
 yarn lint
 
-🔐 환경 변수
-
-프로젝트 루트에 .env.local 생성:
-
-VITE_API_BASE_URL=https://chart-board-back.vercel.app
-
-프론트의 모든 API 호출은 VITE_API_BASE_URL을 기준으로 나갑니다.
-예) GET ${VITE_API_BASE_URL}/posts
 
 🧰 기술 스택
+구분	사용 기술
+Framework & Build	React 19, Vite 7, TypeScript 5
+Routing	React Router v7
+상태 관리 / 데이터	Zustand 5, TanStack Query 5
+스타일	styled-components 6, Prettier
+차트	Recharts 3
+i18n	i18next 25, react-i18next 16
+UX	@studio-freight/lenis 1, AOS 2
+폼 / 검증	react-hook-form 7, zod 4, @hookform/resolvers
+네트워킹	axios 1
+품질 관리	ESLint 9, eslint-plugin-react-hooks, eslint-config-prettier
+Vite 플러그인	@vitejs/plugin-react-swc 4
 
-Framework & Build: React 19, Vite 7, TypeScript 5
+📁 프로젝트 구조
+.
+├── README.md                       # 프로젝트 개요 문서
+├── index.html                      # Vite 진입용 HTML
+├── package.json                    # 의존성 및 스크립트 정의
+├── prettier.config.cjs             # 코드 포맷 규칙 (Prettier)
+├── public/                         # 정적 리소스 (배포 시 그대로 복사)
+│   ├── favicon.ico
+│   ├── manifest.json               # PWA 설정
+│   └── robots.txt                  # 크롤러 접근 제어
+├── src/
+│   ├── App.tsx                     # 전역 라우팅 및 레이아웃 진입점
+│   ├── index.tsx                   # React DOM 진입 (root 렌더)
+│   ├── index.css                   # 전역 스타일
+│   ├── not-found.tsx               # 404 페이지
+│   │
+│   ├── components/                 # 공통 컴포넌트 모음
+│   │   ├── charts/                 # 차트 관련 컴포넌트
+│   │   │   ├── ChartBox.tsx        # 공통 차트 카드 UI 래퍼
+│   │   │   ├── CoffeeMultiLine.tsx # 팀별 버그·생산성 멀티라인 차트
+│   │   │   ├── TopBrands.tsx       # 브랜드 인기 도넛/막대 차트
+│   │   │   └── WeeklyMood.tsx      # 주간 무드 스택형 면적/바 차트
+│   │   ├── common/                 # 레이아웃/공통 UI 컴포넌트
+│   │   │   ├── Layout/
+│   │   │   │   ├── app.footer.tsx  # 전역 푸터
+│   │   │   │   ├── app.header.tsx  # 전역 헤더
+│   │   │   │   └── app.layout.tsx  # 페이지 레이아웃(AOS, Lenis 포함)
+│   │   │   ├── icons/
+│   │   │   │   └── commons.tsx     # 공통 아이콘 집합
+│   │   │   └── ui/                 # 재사용 UI 구성 요소
+│   │   │       ├── Button.tsx      # variant/size 지원 버튼
+│   │   │       ├── Input.tsx       # 일관된 인풋 컴포넌트
+│   │   │       ├── Modal.tsx       # 모달 오버레이/바디
+│   │   │       ├── TextArea.tsx    # 텍스트 입력 영역
+│   │   │       └── Typo.tsx        # 타이포그래피 스타일 컴포넌트
+│   │   └── posts/                  # 게시판 전용 UI
+│   │       ├── PostCard.tsx        # 게시글 카드
+│   │       ├── PostFilters.tsx     # 카테고리/정렬/검색 필터 바
+│   │       ├── PostForm.tsx        # 작성/수정 폼
+│   │       └── PostReadModal.tsx   # 읽기 전용 모달
+│   │
+│   ├── hooks/                      # 커스텀 훅 모음
+│   │   ├── useHealth.ts            # /health API 상태 체크
+│   │   ├── useIntersection.ts      # IntersectionObserver 기반 무한스크롤
+│   │   ├── useLenis.ts             # Lenis 부드러운 스크롤 제어
+│   │   └── usePosts.ts             # 게시글 CRUD 및 쿼리 훅
+│   │
+│   ├── net/                        # 네트워크 (API 통신)
+│   │   ├── api.ts                  # axios 인스턴스/인터셉터 설정
+│   │   └── type.ts                 # Swagger 기반 응답 타입 정의
+│   │
+│   ├── pages/                      # 페이지 단위 컴포넌트
+│   │   ├── charts.page.tsx         # 차트 데모 페이지
+│   │   ├── home.page.tsx           # 홈 허브 페이지
+│   │   ├── sign-in.page.tsx        # 로그인 페이지 (RHF + zod)
+│   │   └── posts/
+│   │       ├── posts.page.tsx      # 게시판 목록 (무한스크롤/모달)
+│   │       ├── posts.create.tsx    # 새 글 작성
+│   │       └── posts.update.tsx    # 글 수정
+│   │
+│   ├── routes/                     # 라우트 가드 및 권한 제어
+│   │   ├── PermissionGuard.tsx     # (확장용) 권한 제어 가드
+│   │   ├── ProtectedRoute.tsx      # 인증 필요 페이지
+│   │   └── PublicOnlyRoute.tsx     # 로그인 상태 접근 불가 페이지
+│   │
+│   ├── stores/                     # 전역 상태 관리 (Zustand)
+│   │   ├── store.auth.ts           # 로그인/토큰 상태
+│   │   └── type.ts                 # 스토어 타입 정의
+│   │
+│   ├── styles/                     # styled-components 기반 스타일
+│   │   ├── theme.ts                # 테마/디자인 토큰
+│   │   ├── styled.d.ts             # 타입 보강 (DefaultTheme)
+│   │   ├── app.header.ts           # 헤더 스타일
+│   │   ├── app.footer.ts           # 푸터 스타일
+│   │   ├── app.layout.ts           # 레이아웃 컨테이너
+│   │   ├── home.page.ts            # 홈 페이지 스타일
+│   │   ├── charts.page.ts          # 차트 페이지 스타일
+│   │   ├── posts.page.ts           # 게시판 스타일
+│   │   ├── sign-in.page.ts         # 로그인 스타일
+│   │   ├── not-found.ts            # 404 스타일
+│   │   ├── PostCard.ts             # 카드 스타일
+│   │   ├── PostFilters.ts          # 필터 스타일
+│   │   ├── PostForm.ts             # 폼 스타일
+│   │   └── PostReadModal.ts        # 읽기 모달 스타일
+│   │
+│   ├── types/
+│   │   └── axios.d.ts              # axios 타입 보강
+│   │
+│   ├── utils/                      # 유틸 함수
+│   │   ├── chart.ts                # 응답 데이터 어댑트/플랫 변환
+│   │   ├── i18n.ts                 # i18next 초기화 및 리소스 등록
+│   │   ├── post.ts                 # 금칙어/태그 정규화 유틸
+│   │   └── regexps.ts              # 공용 정규식 모음
+│   │
+│   └── vite-env.d.ts               # Vite 전용 타입 선언
+│
+├── tsconfig.json                   # TypeScript 설정
+├── tsconfig.tsbuildinfo            # 빌드 캐시
+├── vite.config.ts                  # Vite 설정 (BASE_PATH, API_URL 등)
+└── yarn.lock                       # yarn 의존성 lock 파일
 
-Routing: React Router v7
 
-상태/데이터: Zustand 5, TanStack Query 5
+📰 게시판(Posts)
 
-스타일: styled-components 6 (테마/디자인 토큰), Prettier
+CRUD: 목록 / 조회 / 작성 / 수정 / 삭제
 
-차트: Recharts 3
+검색: 제목 + 본문 (스페이스 구분 AND 매칭)
 
-i18n: i18next 25, react-i18next 16
+정렬: createdAt, title / asc | desc
 
-UX: @studio-freight/lenis 1, AOS 2
+카테고리: NOTICE, QNA, FREE
 
-폼/검증: react-hook-form 7, zod 4, @hookform/resolvers
+페이지네이션: 커서 기반 무한 스크롤
 
-네트워킹: axios 1
-
-품질: ESLint 9, eslint-plugin-react-hooks, eslint-config-prettier
-
-Vite 플러그인: @vitejs/plugin-react-swc 4
-
-📁 프로젝트 구조 (요약)
-src/
-App.tsx # 라우팅/전역 레이아웃 진입
-index.tsx
-not-found.tsx # 404 페이지
-
-components/
-charts/
-ChartBox.tsx # 공통 카드 래퍼
-CoffeMultiLine.tsx # 팀별 버그·생산성 멀티라인
-TopBrands.tsx # 도넛/막대(브랜드 인기)
-WeeklyMood.tsx # 스택형 면적/바(주간 무드)
-common/
-Layout/
-app.header.tsx
-app.footer.tsx
-app.layout.tsx # 고정 헤더, Lenis, AOS
-ui/
-Button.tsx, Input.tsx, Modal.tsx, TextArea.tsx, Typo.tsx
-
-hooks/
-useHealth.ts # /health
-useIntersection.ts # 무한스크롤
-useLenis.ts # 부드러운 스크롤
-usePosts.ts # Posts CRUD
-
-net/
-api.ts # axios 인스턴스/인터셉터
-type.ts # Swagger 기반 타입
-
-pages/
-home.page.tsx
-sign-in.page.tsx # 로그인 (RHF + zod)
-charts.page.tsx
-posts/
-posts.page.tsx # 목록/필터/무한스크롤/읽기모달
-posts.create.tsx
-posts.update.tsx
-
-routes/
-ProtectedRoute.tsx, PublicOnlyRoute.tsx, PermissionGuard.tsx
-
-stores/
-store.auth.ts, type.ts
-
-styles/
-theme.ts, styled.d.ts # 디자인 토큰/타입 보강
-\*.ts # 각 페이지/컴포넌트 스타일
-
-types/
-axios.d.ts
-
-utils/
-chart.ts # 응답 어댑트/플랫 변환
-i18n.ts # i18next 초기화
-post.ts # 금칙어/태그 정규화
-regexps.ts
-
-📰 게시판(Posts) 요약
-
-CRUD: 목록/조회/작성/수정/삭제
-
-검색: 제목+본문 (스페이스 구분 AND 매칭)
-
-정렬: createdAt, title / asc|desc
-
-카테고리: NOTICE | QNA | FREE
-
-페이지네이션: 커서 기반(무한 스크롤)
-
-금칙어 필터: 자모/공백/기호 변형 대응
+금칙어 필터: 자모 / 공백 / 기호 변형 대응
 
 태그: 중복 제거, 최대 5개, 각 24자
 
-i18n: 폼/오류 메시지 번역 반영
+i18n: 폼/오류 메시지 번역 지원
 
-📊 차트(Charts) 요약
+📊 차트(Charts)
 
-TopBrands: 도넛 & 막대, i18n 툴팁/레전드
+TopBrands: 도넛 & 막대
 
-WeeklyMood: 스택형 Area/Bar (stackOffset="expand" → %)
+WeeklyMood: 스택형 면적 그래프
 
 CoffeeMultiLine:
 
 X축: 커피 컵 수(cups)
 
-좌 Y축: bugs(실선) / 우 Y축: productivity(점선)
+좌 Y축: bugs(실선)
 
-adaptCoffeeConsumption()으로 응답 스키마 차이 흡수 → flattenCoffeeTeams()로 납작화
+우 Y축: productivity(점선)
 
-🔌 API 요약 (Backend: NestJS)
+응답 스키마를 adaptCoffeeConsumption()으로 통합 변환
+
+🔌 API (NestJS Backend)
 
 Base URL: https://chart-board-back.vercel.app
 
 Auth
-
-POST /auth/login → JWT 발급
-
-기본 테스트 계정(서버 내 더미 유저):
-
-{ "email": "test@test.test", "password": "Test!234" }
-
-Swagger에서 Authorize 버튼 클릭 후 Bearer <token> 입력
-
-Posts (JWT 필요, “본인 글만” 접근)
-
-GET /posts — 커서 기반 페이지네이션(prevCursor|nextCursor, limit, sort, order, category, from|to, search)
-
-POST /posts — 생성
-
-GET /posts/:id — 단건
-
-PATCH /posts/:id — 부분 수정
-
-DELETE /posts/:id — 삭제
-
-DELETE /posts — 내 모든 글 삭제
-
+Method	Endpoint	설명
+POST	/auth/login	JWT 로그인 발급
+Posts (JWT 필요)
+Method	Endpoint	설명
+GET	/posts	커서 기반 목록
+POST	/posts	생성
+GET	/posts/:id	단건 조회
+PATCH	/posts/:id	수정
+DELETE	/posts/:id	삭제
+DELETE	/posts	전체 삭제
 Mock (공개)
+Endpoint	설명
+/mock/top-coffee-brands	도넛/막대
+/mock/weekly-mood-trend	주간 무드
+/mock/coffee-consumption	팀별 소비량
+/mock/posts	고정 500개 중 일부
 
-GET /mock/top-coffee-brands — 도넛/막대
-
-GET /mock/weekly-mood-trend — 주간 무드
-
-GET /mock/coffee-consumption — 팀별 소비/버그/생산성
-
-GET /mock/posts?count=300 — 고정 500개 중 앞에서부터 slice (기본 300)
-
-현재 백엔드는 in-memory(메모리 기반) 저장 방식입니다. 프로세스를 재시작하면 게시글 데이터가 초기화됩니다(목데이터는 자동 재생성). 필요 시 SQLite/Prisma로 지속 저장 확장 가능.
+현재 백엔드는 in-memory(메모리 기반) 저장이며, 프로세스 재시작 시 초기화됩니다.
+향후 SQLite/Prisma로 확장 가능.
 
 🧪 로컬 검증 팁
-
-# 백엔드 헬스체크
-
+# 헬스체크
 curl https://chart-board-back.vercel.app/health
 
 # 로그인 → 토큰 확인
-
 curl -X POST https://chart-board-back.vercel.app/auth/login \
  -H "Content-Type: application/json" \
  -d '{"email":"test@test.test","password":"Test!234"}'
 
-응답의 token을 프론트 상태에 저장하면 보호 라우트 접근 가능.
+
+응답의 JWT 토큰을 Authorization 헤더로 사용하면 보호 라우트 접근 가능.
 
 🔒 CORS
 
@@ -230,3 +268,4 @@ app.enableCors({ origin: '\*' });
 
 본 리포지토리는 개인 포트폴리오/데모 목적입니다.
 필요 시 상용/팀 환경에 맞춰 확장(로그/보안/스토리지/DB) 가능합니다.
+```
