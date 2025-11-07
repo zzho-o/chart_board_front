@@ -36,7 +36,7 @@ React + Vite + TypeScript 기반의 **게시판 + 차트 + 인증 + i18n 데모 
 | ---------------------------- | --------------------------------------------- |
 | **Frontend (GitHub Pages)**  | 🔗 https://zzho-o.github.io/chart_board_front |
 | **Backend (NestJS, Vercel)** | 🔗 https://chart-board-back.vercel.app        |
-| **Swagger 문서**             | 🔗 https://chart-board-back.vercel.app/api    |
+| **Swagger 문서**             | 🔗 https://chart-board-back.vercel.app/docs   |
 | **Health Check**             | 🔗 https://chart-board-back.vercel.app/health |
 
 ---
