@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -26,16 +26,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Build project
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          BASE_PATH: '/chart_board_front/'
         run: |
           echo "📦 Building project..."
-          export BASE_PATH="/chart_board_front/"
+          echo "💡 BASE_PATH=$BASE_PATH"
+          echo "💡 VITE_API_URL=$VITE_API_URL"
           yarn build
-          echo "✅ Build complete, dist contents:"
+          echo "Build complete, dist contents:"
           ls -la dist
 
       - name: Upload GitHub Pages artifact
