@@ -1,81 +1,35 @@
-name: Deploy to GitHub Pages (Yarn)
+name: Deploy to GitHub Pages (Vite + Yarn)
 
 on:
   push:
-    branches: [main] # 기본 브랜치 맞게 수정
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+    branches:
+      - master
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # Pages용 base 경로 주입. 유저레포면 "/"로 바뀜(아래 if 참고).
-      BASE_PATH: '/${{ github.event.repository.name }}/'
-      # API_URL은 없으면 기본값 사용
-      API_URL: ${{ secrets.API_URL }}
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
 
-      # Yarn Berry(3.x+) 사용 시 Corepack 필요
-      - name: Enable Corepack if Yarn Berry is present
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build project
         run: |
-          if [ -d ".yarn" ]; then
-            corepack enable
-          fi
+          export BASE_PATH="/chart_board/"
+          yarn build
 
-      # 유저/오가 레포(username.github.io)이면 base를 "/"로 강제
-      - name: Adjust BASE_PATH for user/org pages
-        if: ${{ endsWith(github.event.repository.name, '.github.io') }}
-        run: echo "BASE_PATH=/" >> $GITHUB_ENV
-
-      - name: Install deps (Yarn Classic or Berry)
-        run: |
-          if [ -f "yarn.lock" ]; then
-            # Classic 1.x: --frozen-lockfile 사용
-            if [ ! -d ".yarn" ]; then
-              yarn install --frozen-lockfile
-            else
-              # Berry: zero-install이 아니라면 --immutable 권장
-              yarn install --immutable || yarn install
-            fi
-          else
-            echo "No yarn.lock found. Please commit yarn.lock."; exit 1
-          fi
-
-      - name: Create .env.production
-        run: |
-          echo "VITE_API_URL=${API_URL:-https://fe-hiring-rest-api.vercel.app}" > .env.production
-
-      - name: Build
-        run: yarn build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
