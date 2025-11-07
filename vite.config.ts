@@ -3,9 +3,6 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   base: process.env.BASE_PATH || '/',
-  define: {
-    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL),
-  },
   plugins: [react()],
   resolve: {
     alias: {
