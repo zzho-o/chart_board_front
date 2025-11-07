@@ -73,17 +73,17 @@ yarn lint
 
 🧰 기술 스택
 구분	사용 기술
-Framework & Build	React 19, Vite 7, TypeScript 5
-Routing	React Router v7
-상태 관리 / 데이터	Zustand 5, TanStack Query 5
-스타일	styled-components 6, Prettier
-차트	Recharts 3
-i18n	i18next 25, react-i18next 16
-UX	@studio-freight/lenis 1, AOS 2
-폼 / 검증	react-hook-form 7, zod 4, @hookform/resolvers
-네트워킹	axios 1
-품질 관리	ESLint 9, eslint-plugin-react-hooks, eslint-config-prettier
-Vite 플러그인	@vitejs/plugin-react-swc 4
+Framework & Build	    React 19, Vite 7, TypeScript 5
+Routing	                React Router v7
+상태 관리 / 데이터	        Zustand 5, TanStack Query 5
+스타일	                  styled-components 6, Prettier
+차트	                 Recharts 3
+i18n	                i18next 25, react-i18next 16
+UX	                    @studio-freight/lenis 1, AOS 2
+폼 / 검증	              react-hook-form 7, zod 4, @hookform/resolvers
+네트워킹	               axios 1
+품질 관리	               ESLint 9, eslint-plugin-react-hooks, eslint-config-prettier
+Vite 플러그인	          @vitejs/plugin-react-swc 4
 
 📁 프로젝트 구조
 .
