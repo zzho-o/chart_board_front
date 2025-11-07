@@ -6,6 +6,9 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,12 +27,19 @@ jobs:
 
       - name: Build project
         run: |
-          export BASE_PATH="/chart_board/"
+          echo "📦 Building project..."
+          export BASE_PATH="/chart_board_front/"
           yarn build
+          echo "✅ Build complete, dist contents:"
+          ls -la dist || echo "⚠️ dist folder not found"
 
       - name: Deploy to GitHub Pages
         if: success()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_branch: gh-pages
+          publish_dir: dist
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          commit_message: '🚀 Deploy to GitHub Pages'
